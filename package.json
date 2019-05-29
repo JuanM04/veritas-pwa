@@ -1,0 +1,19 @@
+{
+  "name": "veritas",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/JuanM04/veritas.git",
+  "author": "JuanM04 <me@juanm04.com>",
+  "license": "UNLICENCED",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
