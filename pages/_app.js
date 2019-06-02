@@ -5,8 +5,9 @@ import "bootstrap/scss/bootstrap.scss"
 import "utils/styles.sass"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCalendarAlt, faTasks } from '@fortawesome/free-solid-svg-icons'
-library.add(faCalendarAlt, faTasks)
+import * as solidIcons from '@fortawesome/free-solid-svg-icons'
+import iconsToImport from 'utils/icons-to-import'
+iconsToImport.forEach(icon => library.add(solidIcons[icon]))
 
 
 
