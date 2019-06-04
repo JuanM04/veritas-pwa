@@ -2,11 +2,121 @@
 
 
 
+body
+  margin-bottom: 64px
+
+
+
 footer
   width: 100%
-  position: absolute
+  position: fixed
   bottom: 0
+  background-color: $white
+  z-index: 100
 
   .tab
+    margin: 10px auto
+    text-align: center
+    cursor: pointer
+
+    &.current
+      color: $primary
+
+
+
+.schedule
+  @include media-breakpoint-up(sm)
+    width: 525px
+    margin: auto
+  @include media-breakpoint-only(xs)
+    margin-right: 5px
+    margin-left: 5px
+
+  &>.col
+    @include media-breakpoint-up(sm)
+      padding: 0 7.5px
+    @include media-breakpoint-only(xs)
+      padding: 0 5px
+  
+  .schedule-item
+    position: absolute
+    z-index: 5
+
+    @include media-breakpoint-up(sm)
+      font-size: 35px
+      width: 90px
+    @include media-breakpoint-only(xs)
+      font-size: 7vw
+      width: calc(100% - 10px)
+    
+    svg
+      color: white
+      margin: auto
+
+
+
+.schedule-times
+  @include media-breakpoint-up(sm)
+    position: relative
+
+  .schedule-time
+    *
+      position: absolute
+
+    span
+      font-weight: 300
+      opacity: .75
+      @include media-breakpoint-only(sm)
+        left: -20px
+      @include media-breakpoint-only(xs)
+        left: 2.5px
+
+    hr
+      @include media-breakpoint-only(xl)
+        width: 1080px
+      @include media-breakpoint-only(lg)
+        width: 900px
+      @include media-breakpoint-only(md)
+        width: 660px
+      @include media-breakpoint-only(sm)
+        width: 565px
+        left: -20px
+      @include media-breakpoint-only(xs)
+        width: 100%
+        left: 0px
+      margin-top: 0
+      margin-bottom: 64px
+
+
+
+.schedule-modal
+  position: relative
+  color: $white
+  
+  svg
+    position: absolute
+    opacity: .5
+    font-size: 100px
+    bottom: 10px
+    &.left
+      left: 10px
+    &.right
+      right: 10px
+
+  span
     margin: auto
     text-align: center
+  
+  .subject-name
+    font-weight: bold
+    font-size: 25px
+  
+  .professor-name
+    position: relative 
+    top: -7.5px
+    font-style: italic
+    font-size: 15px
+  
+  .module-times
+    position: relative
+    top: 10px
