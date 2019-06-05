@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import Router from 'next/router'
 import Base from 'components/Base'
 import { Container, Col, Row } from 'shards-react'
 import ScheduleItem from 'components/ScheduleItem'
 import ScheduleModal from 'components/ScheduleModal'
 import _range from 'lodash/range'
 
-import { setPixelsMultiplier, START_MINUTES } from 'utils'
+import { setPixelsMultiplier, START_MINUTES, checkTokenClient, setTokenClient } from 'utils'
+import { security } from 'utils/metadata'
 import getData from 'utils/data'
 
 const days = ['MON', 'TUE', 'WED', 'THU', 'FRI']
 
 
 
-export default props => {
+const Schedule = props => {
   // 1 hour = 90px; 1 min = 1.5px
   const [multiplier, setMultiplier] = useState(1.5)
   const [modalData, setModalData] = useState(false)
@@ -41,6 +43,7 @@ export default props => {
   })
 
   useEffect(() => { setPixelsMultiplier(multiplier, setMultiplier) })
+  if(props.token) setTokenClient(props.token)
 
 
   return(
@@ -66,3 +69,24 @@ export default props => {
     </Base>
   )
 }
+
+
+
+Schedule.getInitialProps = async (ctx) => {
+  if(typeof window !== 'undefined') return
+
+  const token = await checkTokenClient(ctx)
+  if(!token) {
+    if (ctx.res) {
+      ctx.res.writeHead(302, { Location: security.pages.safeRedirect })
+      ctx.res.end()
+    }
+    else Router.push(security.pages.safeRedirect)
+  } else {
+    return { token }
+  }
+}
+
+
+
+export default Schedule

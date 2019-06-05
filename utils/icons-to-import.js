@@ -29,6 +29,7 @@ const addIcons = arr => {
 
 addIcons(getIconsFromObjects(METADATA.tabs))
 addIcons(getIconsFromObjects(STATIC_DATA.subjects))
+addIcons(['check-circle'])
 
 
 

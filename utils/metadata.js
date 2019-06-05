@@ -10,5 +10,13 @@ module.exports = {
       name: 'Tareas',
       icon: 'tasks'
     }
-  ]
+  ],
+  security: {
+    pages: {
+      loggedToAccess: [ '/horarios', '/tareas' ],
+      notLoggedToAccess: [ '/acceder' ],
+      safeRedirect: '/',
+      redirectWhenLogged: '/horarios'
+    }
+  }
 }
