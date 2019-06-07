@@ -1,11 +1,17 @@
 {
   "version": 2,
   "name": "veritas",
+  "alias": "veritas.juanm04.com",
+  "regions": ["gru1"],
   "builds": [
     { "src": "next.config.js", "use": "@now/next" },
     { "src": "api/*.js", "use": "@now/node" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1.js" }
-  ]
+  ],
+  "env": {
+    "PASSWORD": "@veritas_password",
+    "JWT_SECRET": "@veritas_jwt_secret"
+  }
 }

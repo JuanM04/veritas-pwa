@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const nextCookies = require('next-cookies')
 const Cookies = require('js-cookie')
-const { default: getConfig } = require('next/config')
 const { useEffect } = require('react')
 
 
@@ -40,15 +39,13 @@ export const checkToken = (JWT_SECRET, token) => {
 
 
 export const getTokenClient = () => {
-  const { serverRuntimeConfig } = getConfig()
-  return getToken(serverRuntimeConfig.JWT_SECRET)
+  return getToken(process.env.JWT_SECRET)
 }
 
 export const checkTokenClient = ctx => {
-  const { serverRuntimeConfig } = getConfig()
   const cookies = nextCookies(ctx)
 
-  return checkToken(serverRuntimeConfig.JWT_SECRET, cookies.token)
+  return checkToken(process.env.JWT_SECRET, cookies.token)
 }
 
 export const setTokenClient = (token, cb=false, withUseEffect=true) => {

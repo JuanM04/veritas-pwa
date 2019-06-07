@@ -1,5 +1,4 @@
 const path = require('path')
-const { parsed: localEnv } = require('dotenv').config()
 const withSASS = require('@zeit/next-sass')
 
 module.exports = withSASS({
@@ -9,10 +8,6 @@ module.exports = withSASS({
     config.resolve.alias['lib'] = path.join(__dirname, 'lib')
 
     return config
-  },
-  
-  serverRuntimeConfig: {
-    ...localEnv
   },
 
   target: 'serverless'
