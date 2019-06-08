@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const nookies = require('nookies').default
 const { useEffect } = require('react')
 
-const { security } = require('utils/metadata')
+const { security } = require('./metadata')
 
 
 
@@ -51,12 +51,23 @@ export const checkTokenClient = ctx => {
 
 export const setTokenClient = (ctx, token, cb=false, withUseEffect=false) => {
   const func = () => {
-    nookies.set(ctx, 'token', token, { expires: 2 * 24 * 60 * 60, path: '/' }) // 2 days
+    nookies.set(ctx, 'token', token, { maxAge: 2 * 24 * 60 * 60, path: '/' }) // 2 days
     if(cb) cb()
   }
   
   if(withUseEffect) useEffect(func)
   else func()
+}
+
+
+
+export const setInitialSettings = (ctx, token=false, cb=false) => {
+  const cookies = nookies.get(ctx)
+
+  if(!cookies.group) nookies.set(ctx, 'group', '2')
+  if(token) setTokenClient(ctx, token)
+
+  if(cb) cb()
 }
 
 

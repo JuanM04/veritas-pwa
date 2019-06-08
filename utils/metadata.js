@@ -9,11 +9,16 @@ module.exports = {
       path: '/tareas',
       name: 'Tareas',
       icon: 'tasks'
+    },
+    {
+      path: '/configuracion',
+      name: 'Configuración',
+      icon: 'cog'
     }
   ],
   security: {
     pages: {
-      loggedToAccess: [ '/horarios', '/tareas' ],
+      loggedToAccess: [ '/horarios', '/tareas', '/configuracion' ],
       notLoggedToAccess: [ '/acceder' ],
       safeRedirect: '/',
       redirectWhenLogged: '/horarios'

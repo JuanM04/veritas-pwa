@@ -72,74 +72,76 @@ const DATA = {
 
 
 
-  group2: [
-    {
-      subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
-      professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb', '9109696b-b597-4e6e-b78e-7f7155563d49' ],
-      modules:        [ toModule('WED',32,0), toModule('FRI',23,1), toModule('FRI',24,1) ]
-    },
-    {
-      subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
-      professors_ids: [ '2925dfb8-20bf-4cd7-8cf7-d6fcf88bff9d' ],
-      modules:        [ toModule('TUE',21), toModule('TUE',22) ]
-    },
-    {
-      subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
-      professors_ids: [ 'f32ecc97-95dd-4f44-9783-6887bbabc6af' ],
-      modules:        [ toModule('MON',21), toModule('MON',22), toModule('MON',23), toModule('MON',24) ]
-    },
-    {
-      subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
-      professors_ids: [ '1958b5a9-6fd4-47cd-b617-6169008258cd', '9109696b-b597-4e6e-b78e-7f7155563d49' ],
-      modules:        [ toModule('WED',31,0), toModule('FRI',21,1), toModule('FRI',22,1) ]
-    },
-  ],
+  groups: {
+    '2': [
+      {
+        subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
+        professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb', '9109696b-b597-4e6e-b78e-7f7155563d49' ],
+        modules:        [ toModule('WED',32,0), toModule('FRI',23,1), toModule('FRI',24,1) ]
+      },
+      {
+        subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
+        professors_ids: [ '2925dfb8-20bf-4cd7-8cf7-d6fcf88bff9d' ],
+        modules:        [ toModule('TUE',21), toModule('TUE',22) ]
+      },
+      {
+        subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
+        professors_ids: [ 'f32ecc97-95dd-4f44-9783-6887bbabc6af' ],
+        modules:        [ toModule('MON',21), toModule('MON',22), toModule('MON',23), toModule('MON',24) ]
+      },
+      {
+        subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
+        professors_ids: [ '1958b5a9-6fd4-47cd-b617-6169008258cd', '9109696b-b597-4e6e-b78e-7f7155563d49' ],
+        modules:        [ toModule('WED',31,0), toModule('FRI',21,1), toModule('FRI',22,1) ]
+      },
+    ],
 
-  group3: [
-    {
-      subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
-      professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb' ],
-      modules:        [ toModule('MON',21), toModule('MON',22), toModule('MON',23), toModule('MON',24) ]
-    },
-    {
-      subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
-      professors_ids: [ 'f32ecc97-95dd-4f44-9783-6887bbabc6af' ],
-      modules:        [ toModule('TUE',21), toModule('TUE',22) ]
-    },
-    {
-      subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
-      professors_ids: [ 'e69aab35-09f0-4cda-ba68-3e912593d433' ],
-      modules:        [ toModule('WED',31), toModule('WED',32) ]
-    },
-    {
-      subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
-      professors_ids: [ '9109696b-b597-4e6e-b78e-7f7155563d49', '1958b5a9-6fd4-47cd-b617-6169008258cd' ],
-      modules:        [ toModule('THU',21,0), toModule('THU',22,0), toModule('THU',23,1), toModule('THU',24,1) ]
-    },
-  ],
+    '3': [
+      {
+        subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
+        professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb' ],
+        modules:        [ toModule('MON',21), toModule('MON',22), toModule('MON',23), toModule('MON',24) ]
+      },
+      {
+        subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
+        professors_ids: [ 'f32ecc97-95dd-4f44-9783-6887bbabc6af' ],
+        modules:        [ toModule('TUE',21), toModule('TUE',22) ]
+      },
+      {
+        subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
+        professors_ids: [ 'e69aab35-09f0-4cda-ba68-3e912593d433' ],
+        modules:        [ toModule('WED',31), toModule('WED',32) ]
+      },
+      {
+        subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
+        professors_ids: [ '9109696b-b597-4e6e-b78e-7f7155563d49', '1958b5a9-6fd4-47cd-b617-6169008258cd' ],
+        modules:        [ toModule('THU',21,0), toModule('THU',22,0), toModule('THU',23,1), toModule('THU',24,1) ]
+      },
+    ],
 
-  group7: [
-    {
-      subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
-      professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb' ],
-      modules:        [ toModule('MON',31), toModule('THU',32) ]
-    },
-    {
-      subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
-      professors_ids: [ '70a0937d-64b1-42f1-9970-ea620ec0238a' ],
-      modules:        [ toModule('THU',31) ]
-    },
-    {
-      subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
-      professors_ids: [ '25fc7b48-6ef7-4803-8632-a2449f6b3ccd', '61afd135-9502-407a-86d0-0dc74558b84d' ],
-      modules:        [ toModule('WED',23,0), toModule('WED',24,0), toModule('FRI',23,1), toModule('FRI',24,1) ]
-    },
-    {
-      subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
-      professors_ids: [ '1958b5a9-6fd4-47cd-b617-6169008258cd', '00118229-2d0c-43b9-97e4-bc496fe3db5b' ],
-      modules:        [ toModule('MON',31,0), toModule('FRI',21,1), toModule('FRI',22,1) ]
-    },
-  ],
+    '7': [
+      {
+        subject_id:     'b1875406-31ce-4d54-8f33-6731d27264f0',     // Instalación y Aplicación de la Energía
+        professors_ids: [ '218cd909-e85d-4904-b307-dbae8fa82cfb' ],
+        modules:        [ toModule('MON',32), toModule('THU',32) ]
+      },
+      {
+        subject_id:     'f5357a6b-2600-4b31-8346-9b09a9da5ebd',     // Dibujo Tecnológico
+        professors_ids: [ '70a0937d-64b1-42f1-9970-ea620ec0238a' ],
+        modules:        [ toModule('THU',31) ]
+      },
+      {
+        subject_id:     '547c2179-6a7a-40e2-a60e-85bfa3f35cfa',     // Dibujo y Procesamiento Mecánico
+        professors_ids: [ '25fc7b48-6ef7-4803-8632-a2449f6b3ccd', '61afd135-9502-407a-86d0-0dc74558b84d' ],
+        modules:        [ toModule('WED',23,0), toModule('WED',24,0), toModule('FRI',23,1), toModule('FRI',24,1) ]
+      },
+      {
+        subject_id:     'aa80aaba-25c3-436f-8937-0a180b4319b9',     // Máquinas Eléctricas I
+        professors_ids: [ '1958b5a9-6fd4-47cd-b617-6169008258cd', '00118229-2d0c-43b9-97e4-bc496fe3db5b' ],
+        modules:        [ toModule('MON',31,0), toModule('FRI',21,1), toModule('FRI',22,1) ]
+      },
+    ],
+  }
 }
 
 
@@ -150,18 +152,24 @@ module.exports = (join=false) => {
   if(!join) return DATA
 
   const findById = (arr, id) => arr.find(obj => obj.id === id)
-
-  let joined = {}
-  for (const group in DATA) {
+  const joinGroup = group => {
     let groupJoined = []
-    for (const subject of DATA[group]) {
+    for (const subject of group) {
       groupJoined.push({
         subject: findById(STATIC_DATA.subjects, subject.subject_id),
         professor: subject.professors_ids.map(professor_id => findById(STATIC_DATA.professors, professor_id)),
         modules: subject.modules
       })
     }
-    joined[group] = groupJoined
+    return groupJoined
+  }
+
+  let joined = {
+    classroom: joinGroup(DATA.classroom),
+    groups: []
+  }
+  for (const group in DATA.groups) {
+    joined.groups[group] = joinGroup(DATA.groups[group])
   }
   return joined
 }

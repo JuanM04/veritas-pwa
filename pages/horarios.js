@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Base from 'components/Base'
+import nookies from 'nookies'
 import { Container, Col, Row } from 'shards-react'
 import ScheduleItem from 'components/ScheduleItem'
 import ScheduleModal from 'components/ScheduleModal'
@@ -19,7 +20,7 @@ const Schedule = props => {
   const timePxs = time => (time * 60 - START_MINUTES) * multiplier
 
   let classroom = getData(true).classroom
-  let group = getData(true).groups['3']
+  let group = getData(true).groups[props.group]
   let colsByDay = {
     MON: [],
     TUE: [],
@@ -71,6 +72,10 @@ const Schedule = props => {
 
 Schedule.getInitialProps = async (ctx) => {
   await redirectIfNotLoggedIn(ctx)
+
+  const cookies = nookies.get(ctx)
+
+  return { group: cookies.group }
 }
 
 

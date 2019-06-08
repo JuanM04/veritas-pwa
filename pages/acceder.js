@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
-import Cookies from 'js-cookie'
+import nookies from 'nookies'
 import {
   Button,
   Card,
@@ -14,7 +14,7 @@ import {
 } from 'shards-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { checkTokenClient, setTokenClient } from 'utils'
+import { checkTokenClient, setInitialSettings } from 'utils'
 import { security } from 'utils/metadata'
 
 
@@ -40,7 +40,7 @@ const Login = props => {
     const res = await response.json()
     
     if(res.token) {
-      setTokenClient(res.token, () => Router.push(security.pages.redirectWhenLogged), false)
+      setInitialSettings({}, res.token, () => Router.push(security.pages.redirectWhenLogged))
     } else {
       setWaiting(false)
       setInvalid(true)
@@ -49,7 +49,7 @@ const Login = props => {
 
   useEffect(() => {
     const func = async () => {
-      const token = await Cookies.get('token')
+      const { token } = await nookies.get()
       if(!token) return
       setWaiting(true)
   
@@ -60,7 +60,7 @@ const Login = props => {
       })
       const res = await response.json()
   
-      if(res.token) setTokenClient(res.token, () => Router.push(security.pages.redirectWhenLogged), false)
+      if(res.token) setInitialSettings({}, res.token, () => Router.push(security.pages.redirectWhenLogged))
       else setWaiting(false)
     }
     func()
