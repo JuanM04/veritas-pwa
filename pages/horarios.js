@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import Router from 'next/router'
 import Base from 'components/Base'
 import { Container, Col, Row } from 'shards-react'
 import ScheduleItem from 'components/ScheduleItem'
 import ScheduleModal from 'components/ScheduleModal'
 import _range from 'lodash/range'
 
-import { setPixelsMultiplier, START_MINUTES, checkTokenClient, setTokenClient } from 'utils'
-import { security } from 'utils/metadata'
+import { setPixelsMultiplier, START_MINUTES, redirectIfNotLoggedIn } from 'utils'
 import getData from 'utils/data'
 
 const days = ['MON', 'TUE', 'WED', 'THU', 'FRI']
@@ -21,7 +19,7 @@ const Schedule = props => {
   const timePxs = time => (time * 60 - START_MINUTES) * multiplier
 
   let classroom = getData(true).classroom
-  let group = getData(true)['group' + 3]
+  let group = getData(true).groups['3']
   let colsByDay = {
     MON: [],
     TUE: [],
@@ -43,7 +41,6 @@ const Schedule = props => {
   })
 
   useEffect(() => { setPixelsMultiplier(multiplier, setMultiplier) })
-  if(props.token) setTokenClient(props.token)
 
 
   return(
@@ -73,18 +70,7 @@ const Schedule = props => {
 
 
 Schedule.getInitialProps = async (ctx) => {
-  if(typeof window !== 'undefined') return
-
-  const token = await checkTokenClient(ctx)
-  if(!token) {
-    if (ctx.res) {
-      ctx.res.writeHead(302, { Location: security.pages.safeRedirect })
-      ctx.res.end()
-    }
-    else Router.push(security.pages.safeRedirect)
-  } else {
-    return { token }
-  }
+  await redirectIfNotLoggedIn(ctx)
 }
 
 

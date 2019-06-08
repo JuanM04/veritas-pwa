@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken')
-const nextCookies = require('next-cookies')
-const Cookies = require('js-cookie')
+const nookies = require('nookies').default
 const { useEffect } = require('react')
+
+const { security } = require('utils/metadata')
 
 
 
@@ -43,17 +44,34 @@ export const getTokenClient = () => {
 }
 
 export const checkTokenClient = ctx => {
-  const cookies = nextCookies(ctx)
+  const cookies = nookies.get(ctx)
 
   return checkToken(process.env.JWT_SECRET, cookies.token)
 }
 
-export const setTokenClient = (token, cb=false, withUseEffect=true) => {
+export const setTokenClient = (ctx, token, cb=false, withUseEffect=false) => {
   const func = () => {
-    Cookies.set('token', token, { expires: 2, path: '/' })
+    nookies.set(ctx, 'token', token, { expires: 2 * 24 * 60 * 60, path: '/' }) // 2 days
     if(cb) cb()
   }
   
   if(withUseEffect) useEffect(func)
   else func()
+}
+
+
+
+export const redirectIfNotLoggedIn = ctx => {
+  if(typeof window !== 'undefined') return
+
+  const token = checkTokenClient(ctx)
+  if(!token) {
+    if (ctx.res) {
+      ctx.res.writeHead(302, { Location: security.pages.safeRedirect })
+      ctx.res.end()
+    }
+    else Router.push(security.pages.safeRedirect)
+  } else {
+    setTokenClient(token)
+  }
 }
