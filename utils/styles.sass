@@ -1,5 +1,7 @@
 @import ../node_modules/shards-ui/src/scss/shards
 
+$big-witdth: 525px
+
 
 
 .container.center
@@ -41,7 +43,7 @@ footer
 
 .schedule
   @include media-breakpoint-up(sm)
-    width: 525px
+    width: $big-witdth
     margin: auto
   @include media-breakpoint-only(xs)
     margin-right: 5px
@@ -135,3 +137,32 @@ footer
   .module-times
     position: relative
     top: 10px
+
+
+
+.tasks
+  @include media-breakpoint-up(sm)
+    width: $big-witdth
+    margin: auto
+  @include media-breakpoint-only(xs)
+    margin-right: 2.5px
+    margin-left: 2.5px
+  
+  .tasks-add
+    margin: 10px auto
+
+
+
+
+.task-modal,
+  .top, .bottom
+    .right
+      display: flex
+      justify-content: flex-end
+  
+  .top
+    font-size: 20px
+    margin-bottom: 5px
+  
+  .bottom
+    margin-bottom: 10px

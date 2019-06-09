@@ -12,6 +12,7 @@
   ],
   "env": {
     "PASSWORD": "@veritas_password",
-    "JWT_SECRET": "@veritas_jwt_secret"
+    "JWT_SECRET": "@veritas_jwt_secret",
+    "PRISMA_SECRET": "@veritas_prisma_secret"
   }
 }

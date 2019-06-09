@@ -88,7 +88,13 @@ const Login = props => {
                 onClick={checkPassword}
                 disabled={waiting}
               >
-                <FontAwesomeIcon icon="check-circle" />
+                {
+                  waiting
+                  ?
+                    <span className="spinner-border spinner-border-sm" role="status"></span>
+                  :
+                    <FontAwesomeIcon icon="check-circle" />
+                }
               </Button>
             </InputGroupAddon>
           </InputGroup>

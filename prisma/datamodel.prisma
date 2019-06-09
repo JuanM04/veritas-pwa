@@ -1,0 +1,17 @@
+enum TaskType {
+  EXAM
+  HOMEWORK
+  MISSING
+  OTHER
+}
+
+type Task {
+  id: ID! @id
+  type: TaskType!
+  group: String!
+  date: DateTime!
+  subject: String
+  professor: String
+  title: String
+  description: String
+}
