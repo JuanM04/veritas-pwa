@@ -9,7 +9,7 @@ const lightOpacity = a => `rgba(233, 236, 239, ${a})`
 
 
 export default props => {
-  if(!props.cookies.dark) return <></>
+  if(!props.darkMode) return <></>
 
   return(
     <style jsx global>{`

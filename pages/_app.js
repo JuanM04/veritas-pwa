@@ -35,6 +35,16 @@ class MyApp extends App {
     return { pageProps, cookies };
   }
 
+  state = {
+    darkMode: this.props.cookies.dark ? true : false
+  }
+
+  handleDarkMode = () => {
+    this.setState({ darkMode: !this.state.darkMode })
+  }
+
+
+
   render() {
     const { Component, pageProps } = this.props;
 
@@ -45,8 +55,8 @@ class MyApp extends App {
           <link rel="manifest" href="/static/manifest.json" />
           <link rel="shortcut icon" href="/static/Logo-32.png" type="image/png" />
         </Head>
-        <Component {...pageProps} />
-        <Theme cookies={this.props.cookies} />
+        <Component {...pageProps} darkMode={this.state.darkMode} handleDarkMode={this.handleDarkMode}  />
+        <Theme darkMode={this.state.darkMode} />
       </Container>
     );
   }
