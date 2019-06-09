@@ -1,9 +1,11 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 import Head from 'next/head'
+import { parseCookies } from 'nookies'
 
 import "bootstrap/scss/bootstrap.scss"
 import "utils/styles.sass"
+import Theme from 'components/Theme'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import * as solidIcons from '@fortawesome/free-solid-svg-icons'
@@ -24,11 +26,13 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
 
+    const cookies = await parseCookies(ctx)
+
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    return { pageProps };
+    return { pageProps, cookies };
   }
 
   render() {
@@ -42,6 +46,7 @@ class MyApp extends App {
           <link rel="shortcut icon" href="/static/Logo-32.png" type="image/png" />
         </Head>
         <Component {...pageProps} />
+        <Theme cookies={this.props.cookies} />
       </Container>
     );
   }
