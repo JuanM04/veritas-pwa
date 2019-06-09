@@ -1,6 +1,6 @@
 endpoint: https://us1.prisma.sh/juanm04-1580d7/veritas/dev
 datamodel: datamodel.prisma
-secret: ${env:JWT_SECRET}
+secret: ${env:PRISMA_SECRET}
 
 generate:
   - generator: javascript-client
