@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const nookies = require('nookies').default
 const { useEffect } = require('react')
+const Router = require('next/router').default
+const fetch = require('isomorphic-unfetch')
 
 const { tabs, security } = require('./metadata')
 const STATIC_DATA = require('./static-data.json')
@@ -96,10 +98,29 @@ export const setInitialSettings = (ctx, token=false, cb=false) => {
 
 
 
-export const redirectIfNotLoggedIn = ctx => {
-  if(typeof window !== 'undefined') return
+export const redirectIfNotLoggedIn = async ctx => {
+  let token = false
 
-  const token = checkTokenClient(ctx)
+  if(typeof window === 'undefined') {
+    token = await checkTokenClient(ctx)
+  } else {
+    const cookies = nookies.get(ctx)
+
+    if(cookies.token) {
+      if(navigator.onLine) {
+        const response = await fetch('/api/check-token', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: cookies.token })
+        })
+        const res = await response.json()
+        token = res.token
+      } else {
+        token = cookies.token
+      }
+    }
+  }
+
   if(!token) {
     if (ctx.res) {
       ctx.res.writeHead(302, { Location: security.pages.safeRedirect })
@@ -107,6 +128,6 @@ export const redirectIfNotLoggedIn = ctx => {
     }
     else Router.push(security.pages.safeRedirect)
   } else {
-    setTokenClient(token)
+    setTokenClient(ctx, token)
   }
 }
