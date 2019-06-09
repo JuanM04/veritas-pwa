@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const nookies = require('nookies').default
 const { useEffect } = require('react')
 
-const { security } = require('./metadata')
+const { tabs, security } = require('./metadata')
 const STATIC_DATA = require('./static-data.json')
 
 
@@ -80,7 +80,16 @@ export const setInitialSettings = (ctx, token=false, cb=false) => {
   const cookies = nookies.get(ctx)
 
   if(!cookies.group) nookies.set(ctx, 'group', '2')
+  if(!localStorage.getItem('tasks')) localStorage.setItem('tasks', '[]')
   if(token) setTokenClient(ctx, token)
+
+  async function addToCache(urls) {
+    const myCache = await window.caches.open('https-calls')
+    await myCache.addAll(urls)
+  }
+  
+  const tabsPath = tabs.map(tab => tab.path)
+  addToCache(tabsPath.concat(['/', '/acceder']))
 
   if(cb) cb()
 }

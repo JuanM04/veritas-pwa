@@ -12,7 +12,7 @@ import getData from 'utils/data'
 
 
 
-export default ({ data, setData, tasks, setTasks }) => {
+export default ({ data, setData, setTasks, isOnline }) => {
   const open = data !== false
   if(!open) return <></>
   
@@ -52,9 +52,10 @@ export default ({ data, setData, tasks, setTasks }) => {
     setLoading(true)
     func()
     alert('Tarea eliminada')
-    let newTasks = tasks
+    let newTasks = JSON.parse(localStorage.getItem('tasks'))
     newTasks.splice(_findIndex(newTasks, { id: data.id }), 1)
-    setTasks(newTasks)
+    localStorage.setItem('tasks', JSON.stringify(newTasks))
+    setTasks(formatTasks(newTasks))
     setData(false)
   }
 
@@ -93,9 +94,10 @@ export default ({ data, setData, tasks, setTasks }) => {
       const res = await response.json()
 
       const sync = () => {
-        let newTasks = tasks
+        let newTasks = JSON.parse(localStorage.getItem('tasks'))
         if(data.id) newTasks[_findIndex(newTasks, { id: data.id })] = res
         else newTasks.push(res)
+        localStorage.setItem('tasks', JSON.stringify(newTasks))
         
         setTasks(formatTasks(newTasks, true))
         setData(formatTask(res))
@@ -271,12 +273,14 @@ export default ({ data, setData, tasks, setTasks }) => {
               <Button
                 outline pill theme="info"
                 onClick={handleEditing}
+                disabled={!isOnline}
               >
                 <FontAwesomeIcon icon="edit" />
               </Button>
               <Button
                 outline pill theme="danger"
                 onClick={handleToDelete}
+                disabled={!isOnline}
               >
                 <FontAwesomeIcon icon="trash-alt" /> {toDelete && '¿Seguro?'}
               </Button>

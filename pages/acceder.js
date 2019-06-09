@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
 import nookies from 'nookies'
+import jwt from 'jsonwebtoken'
+import moment from 'moment'
 import {
   Button,
   Card,
@@ -53,12 +55,21 @@ const Login = props => {
       if(!token) return
       setWaiting(true)
   
-      const response = await fetch('/api/check-token', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      })
-      const res = await response.json()
+      let res = {}
+      if(navigator.onLine) {
+        const response = await fetch('/api/check-token', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        })
+        res = await response.json()
+      } else {
+        const payload = await jwt.decode(token)
+        if(payload) {
+          const diff = moment().diff(moment(payload.lastOnline), 'days')
+          if(diff <= 7 && diff >= 0) res.token = token
+        }
+      }
   
       if(res.token) setInitialSettings({}, res.token, () => Router.push(security.pages.redirectWhenLogged))
       else setWaiting(false)

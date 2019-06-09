@@ -34,9 +34,9 @@ export default props => {
   }
 
   return(
-    <ListGroupItem onClick={() => setModalData(task)} >
+    <ListGroupItem onClick={() => setModalData(task)} className="task">
       {content.prefix} {task.subject ? <FontAwesomeIcon icon={task.subject.icon} color={task.subject.color} /> : ''} {content.data}
-      {''} <span style={{ fontWeight: 'bold' }}>{relativeDate}</span>
+      {''} <span className="date">{relativeDate}</span>
       {''} <TaskBadge type={task.type} />
     </ListGroupItem>
   )
