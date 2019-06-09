@@ -38,7 +38,7 @@ export const formatTasks = (tasks, sortByDate=false) => {
 
 
 
-export const getToken = JWT_SECRET => jwt.sign({ lastOnline: Date.now() }, JWT_SECRET, { expiresIn: '2d' })
+export const getToken = JWT_SECRET => jwt.sign({ lastOnline: Date.now() }, JWT_SECRET, { expiresIn: '7d' })
 
 export const checkToken = (JWT_SECRET, token) => {
   if(!token) return false
@@ -66,7 +66,7 @@ export const checkTokenClient = ctx => {
 
 export const setTokenClient = (ctx, token, cb=false, withUseEffect=false) => {
   const func = () => {
-    nookies.set(ctx, 'token', token, { maxAge: 2 * 24 * 60 * 60, path: '/' }) // 2 days
+    nookies.set(ctx, 'token', token, { maxAge: 7 * 24 * 60 * 60, path: '/' }) // 7 days
     if(cb) cb()
   }
   
