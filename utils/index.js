@@ -3,6 +3,7 @@ const nookies = require('nookies').default
 const { useEffect } = require('react')
 
 const { security } = require('./metadata')
+const STATIC_DATA = require('./static-data.json')
 
 
 
@@ -19,6 +20,20 @@ export const toMinutes = time => {
 export const setPixelsMultiplier = (multiplier, setMultiplier) => {
   let newMultiplier = (window.innerWidth - (5*2 + 5*10)) / 5 / 60
   if(window.innerWidth < BREAKPOINT && multiplier !== newMultiplier) setMultiplier(newMultiplier)
+}
+
+
+
+export const formatTask = task => {
+  if(typeof task.subject === 'string') task.subject = STATIC_DATA.subjects.find(subject => subject.id === task.subject)
+  if(typeof task.professor === 'string') task.professor = STATIC_DATA.professors.find(professor => professor.id === task.professor)
+
+  return task
+}
+
+export const formatTasks = (tasks, sortByDate=false) => {
+  if(sortByDate) tasks.sort((a, b) => new Date(a.date) - new Date(b.date))
+  return tasks.map(formatTask)
 }
 
 

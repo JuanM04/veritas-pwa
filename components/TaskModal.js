@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import nookies from 'nookies'
+import fetch from 'isomorphic-unfetch'
+import _findIndex from 'lodash/findIndex'
 import TaskBadge from 'components/TaskBadge'
 import { Button, Col, DatePicker, FormCheckbox, FormInput, FormRadio, FormTextarea, Modal, ModalBody, ModalFooter, Row } from 'shards-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { formatTask, formatTasks } from 'utils'
 import getData from 'utils/data'
 
 
 
-export default ({ data, setData }) => {
+export default ({ data, setData, tasks, setTasks }) => {
   const open = data !== false
   if(!open) return <></>
   
@@ -18,6 +21,7 @@ export default ({ data, setData }) => {
   const [editing, setEditing] = useState(data.createTask || false)
   const [toDelete, setToDelete] = useState(false)
   const [toEdit, setToEdit] = useState(false)
+  const [loading, setLoading] = useState(false)
 
 
   const [editType, setEditType] = useState(data.type || 'HOMEWORK')
@@ -36,7 +40,22 @@ export default ({ data, setData }) => {
 
   const handleToDelete = () => {
     if(!toDelete) return setToDelete(true)
-    // TODO: Delete
+
+    const func = async () => {
+      await fetch('/api/delete-task', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: cookies.token, taskId: data.id })
+      })
+    }
+    
+    setLoading(true)
+    func()
+    alert('Tarea eliminada')
+    let newTasks = tasks
+    newTasks.splice(_findIndex(newTasks, { id: data.id }), 1)
+    setTasks(newTasks)
+    setData(false)
   }
 
   const handleToEdit = () => {
@@ -44,7 +63,53 @@ export default ({ data, setData }) => {
     if((editType === 'MISSING') && !editProfessor) return alert('Elegí una profesor')
     if((editType === 'OTHER') && !editTitle) return alert('Poné un título')
     if(!toEdit) return setToEdit(true)
-    // TODO: Edit
+    
+    let taskData = {
+      type: editType,
+      group: editGroup ? cookies.group : 'CLASSROOM',
+      date: editDate,
+      subject: editSubject || null,
+      professor: editProfessor || null,
+      title: editTitle || null,
+      description: editDescription || null
+    }
+
+    const func = async () => {
+      let response
+      if(data.id) {  
+        response = await fetch('/api/update-task', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: cookies.token, taskData, taskId: data.id })
+        })
+      } else {
+        response = await fetch('/api/create-task', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: cookies.token, taskData })
+        })
+      }
+
+      const res = await response.json()
+
+      const sync = () => {
+        let newTasks = tasks
+        if(data.id) newTasks[_findIndex(newTasks, { id: data.id })] = res
+        else newTasks.push(res)
+        
+        setTasks(formatTasks(newTasks, true))
+        setData(formatTask(res))
+        
+        setToEdit(false)
+        setEditing(false)
+        setLoading(false)
+      }
+      
+      await sync()
+    }
+    
+    setLoading(true)
+    func()
   }
 
 
@@ -71,6 +136,7 @@ export default ({ data, setData }) => {
                         name="type"
                         checked={editType === type}
                         onChange={() => setEditType(type)}
+                        disabled={loading}
                       >
                         <TaskBadge type={type} />
                       </FormRadio>
@@ -89,6 +155,7 @@ export default ({ data, setData }) => {
                       if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
                       else setEditDate(new Date(date))
                     }}
+                    disabled={loading}
                   />
                 </Col>
                 <Col xl="auto">
@@ -99,6 +166,7 @@ export default ({ data, setData }) => {
                       setEditProfessor(false)
                       setEditGroup(!editGroup)
                     }}
+                    disabled={loading}
                   >
                     Grupo {cookies.group}
                   </FormCheckbox>
@@ -113,6 +181,7 @@ export default ({ data, setData }) => {
                       name="subject"
                       checked={editSubject === subject.id}
                       onChange={() => setEditSubject(subject.id)}
+                      disabled={loading}
                     >
                       <FontAwesomeIcon icon={subject.icon} color={subject.color} /> {subject.name}
                     </FormRadio>
@@ -123,6 +192,7 @@ export default ({ data, setData }) => {
                       name="professor"
                       checked={editProfessor === professor.id}
                       onChange={() => setEditProfessor(professor.id)}
+                      disabled={loading}
                     >
                       {professor.last_name}, {professor.first_name}
                     </FormRadio>
@@ -133,6 +203,7 @@ export default ({ data, setData }) => {
                       value={editTitle}
                       maxLength="50"
                       onChange={e => setEditTitle(e.target.value)}
+                      disabled={loading}
                     />
                   ) }
                 </Col>
@@ -144,6 +215,7 @@ export default ({ data, setData }) => {
                     placeholder="Descripción (opcional)"
                     value={editDescription}
                     onChange={e => setEditDescription(e.target.value)}
+                    disabled={loading}
                   />
                 </Col>
               </Row>
@@ -152,12 +224,14 @@ export default ({ data, setData }) => {
               <Button
                 outline pill theme="success"
                 onClick={handleToEdit}
+                disabled={loading}
               >
                 <FontAwesomeIcon icon="check" /> {toEdit && '¿Seguro?'}
               </Button>
               <Button
                 outline pill theme="danger"
                 onClick={handleEditing}
+                disabled={!data.id || loading}
               >
                 <FontAwesomeIcon icon="times" />
               </Button>
