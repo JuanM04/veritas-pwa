@@ -1,5 +1,6 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import Head from 'next/head'
 
 import "bootstrap/scss/bootstrap.scss"
 import "utils/styles.sass"
@@ -35,6 +36,11 @@ class MyApp extends App {
 
     return (
       <Container>
+        <Head>
+          <title>Veritas</title>
+          <link rel="manifest" href="/static/manifest.json" />
+          <link rel="shortcut icon" href="/static/Logo-32.png" type="image/png" />
+        </Head>
         <Component {...pageProps} />
       </Container>
     );
