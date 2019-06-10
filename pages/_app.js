@@ -15,6 +15,7 @@ moment.locale('es')
 
 import { registerLocale, setDefaultLocale } from  "react-datepicker"
 import es from 'date-fns/locale/es'
+es.options.weekStartsOn = 0
 registerLocale('es', es)
 setDefaultLocale('es')
 

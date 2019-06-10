@@ -82,7 +82,7 @@ const Login = props => {
   return(
     <Container className="center login">
       <Card>
-        <CardHeader>Veritas | Acceder</CardHeader>
+        <CardHeader>Acceder</CardHeader>
         <CardBody>
           <InputGroup>
             <FormInput

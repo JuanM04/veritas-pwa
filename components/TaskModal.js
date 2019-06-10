@@ -154,6 +154,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
                     selected={editDate}
                     dropdownMode="select"
                     dateFormat="MMMM d"
+                    minDate={new Date()}
                     onChange={date => {
                       if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
                       else setEditDate(new Date(date))
