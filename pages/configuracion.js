@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import nookies from 'nookies'
 import Router from 'next/router'
 import Base from 'components/Base'
-import { Container, Button, FormSelect, Row } from 'shards-react'
+import { Container, Button, FormCheckbox, FormSelect, Row } from 'shards-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { redirectIfNotLoggedIn } from 'utils'
 import { security } from 'utils/metadata'
 
 const Settings = props => {
-  const [currentGroup, setCurrentGroup] = useState(props.group)
+  const { cookies } = props
+  const [currentGroup, setCurrentGroup] = useState(cookies.group)
 
   const handleGroups = e => {
     nookies.set({}, 'group', e.target.value, { path: '/' })
@@ -26,6 +27,7 @@ const Settings = props => {
   return (
     <Base currentTab={2}>
       <Container className="center settings">
+        {/* Group */}
         <Row>
           <FormSelect
             value={currentGroup}
@@ -36,6 +38,21 @@ const Settings = props => {
             <option value="7">Grupo 7</option>
           </FormSelect>
         </Row>
+        {/* Dark Mode */}
+        <Row>
+          <FormCheckbox
+            checked={props.darkMode}
+            onChange={() => {
+              if(props.darkMode) nookies.destroy({}, 'dark')
+              else nookies.set({}, 'dark')
+              props.handleDarkMode()
+            }}
+          >
+            Modo Oscuro
+          </FormCheckbox>
+        </Row>
+
+        {/* Log Out */}
         <Row>
           <Button outline theme="danger" onClick={logOut}>
             <FontAwesomeIcon icon="sign-out-alt" /> Salir
@@ -53,7 +70,7 @@ Settings.getInitialProps = async ctx => {
 
   const cookies = nookies.get(ctx)
 
-  return { group: cookies.group }
+  return { cookies }
 }
 
 

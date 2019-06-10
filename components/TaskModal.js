@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { formatTask, formatTasks } from 'utils'
 import getData from 'utils/data'
+import { da } from 'date-fns/esm/locale';
 
 
 
@@ -153,6 +154,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
                     selected={editDate}
                     dropdownMode="select"
                     dateFormat="MMMM d"
+                    minDate={new Date()}
                     onChange={date => {
                       if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
                       else setEditDate(new Date(date))
@@ -249,17 +251,14 @@ export default ({ data, setData, setTasks, isOnline }) => {
           <>
             <ModalBody className="task-modal">
               <Row className="top">
-                  {
-                    (data.subject || data.professor) && (
-                      <Col className="left">
-                        { data.subject && <><FontAwesomeIcon icon={data.subject.icon} color={data.subject.color} /> {data.subject.name}</>  }
-                        { data.professor && <>{data.professor.last_name}, {data.professor.first_name}</>}
-                      </Col>
-                    )
-                  }
-                  <Col className="right" xl="auto">
-                    <TaskBadge type={data.type} />
-                  </Col>
+                <Col className="left">
+                  { data.subject && <><FontAwesomeIcon icon={data.subject.icon} color={data.subject.color} /> {data.subject.name}</>  }
+                  { data.professor && <>{data.professor.last_name}, {data.professor.first_name}</>}
+                  { data.title }
+                </Col>
+                <Col className="right" xl="auto">
+                  <TaskBadge type={data.type} />
+                </Col>
               </Row>
               <Row className="bottom">
                 <Col className="left">{moment(data.date).format('dddd D [de] MMMM')}</Col>

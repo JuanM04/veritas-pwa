@@ -60,7 +60,7 @@ const Tasks = props => {
             theme="success" pill className="tasks-add"
             onClick={() => setModalData({ createTask: true })}
           >
-            <FontAwesomeIcon icon="plus" />
+            <FontAwesomeIcon icon="plus" /> Nueva Tarea
           </Button>
           :
           <Alert theme="warning" className="tasks-alert">

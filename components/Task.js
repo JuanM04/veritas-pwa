@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default props => {
   const { task, setModalData } = props
-  const now = moment(new Date())
+  const now = moment().startOf('day')
   const date = moment(task.date)
   let relativeDate = date.fromNow()
   if(date.diff(now, 'days') === 0) relativeDate = 'hoy'
