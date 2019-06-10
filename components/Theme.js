@@ -15,6 +15,7 @@ export default props => {
     <style jsx global>{`
       body,
       footer,
+      .login .card,
       .modal-content,
       .form-control, .form-control:focus,
       .task
@@ -26,6 +27,7 @@ export default props => {
         color: ${white} !important
       }
 
+      .index > *,
       .modal-body,
       footer,
       .tasks,
