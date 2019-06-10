@@ -44,6 +44,11 @@ class MyApp extends App {
     this.setState({ darkMode: !this.state.darkMode })
   }
 
+  componentDidMount = () => {
+    const darkCookie = this.props.cookies.dark ? true : false
+    if(this.state.darkMode !== darkCookie) this.setState({ darkMode: darkCookie })
+  }
+
 
 
   render() {
@@ -55,6 +60,7 @@ class MyApp extends App {
           <title>Veritas</title>
           <link rel="manifest" href="/static/manifest.json" />
           <link rel="shortcut icon" href="/static/Logo-32.png" type="image/png" />
+          <meta name="theme-color" content={this.state.darkMode ? '#212529' : '#FFFFFF'} />
         </Head>
         <Component {...pageProps} darkMode={this.state.darkMode} handleDarkMode={this.handleDarkMode}  />
         <Theme darkMode={this.state.darkMode} />
