@@ -61,19 +61,29 @@ export default ({ data, setData, setTasks, isOnline }) => {
   }
 
   const handleToEdit = () => {
-    if((editType === 'EXAM' || editType === 'HOMEWORK') && !editSubject) return alert('Elegí una materia')
-    if((editType === 'MISSING') && !editProfessor) return alert('Elegí una profesor')
-    if((editType === 'OTHER') && !editTitle) return alert('Poné un título')
-    if(!toEdit) return setToEdit(true)
-    
     let taskData = {
       type: editType,
       group: editGroup ? cookies.group : 'CLASSROOM',
       date: editDate,
-      subject: editSubject || null,
-      professor: editProfessor || null,
-      title: editTitle || null,
       description: editDescription || null
+    }
+
+    switch (editType) {
+      case 'EXAM':
+      case 'HOMEWORK':
+        if(editSubject) taskData.subject = editSubject
+        else return alert('Elegí una materia')
+        break
+      case 'MISSING':
+          if(editProfessor) taskData.professor = editProfessor
+          else return alert('Elegí una profesor')
+          break
+      case 'OTHER':
+          if(editTitle) taskData.title = editTitle
+          else return alert('Elegí una materia')
+          break
+      default:
+        break
     }
 
     const func = async () => {
