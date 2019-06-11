@@ -64,7 +64,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
     let taskData = {
       type: editType,
       group: editGroup ? cookies.group : 'CLASSROOM',
-      date: editDate,
+      date: moment(editDate).startOf('day')._d,
       description: editDescription || null
     }
 
