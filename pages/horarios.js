@@ -19,8 +19,10 @@ const Schedule = props => {
   const [modalData, setModalData] = useState(false)
   const timePxs = time => (time * 60 - START_MINUTES) * multiplier
 
+
+
   let classroom = getData(true).classroom
-  let group = getData(true).groups[props.group]
+  let group = props.group ? getData(true).groups[props.group] : false
   let colsByDay = {
     MON: [],
     TUE: [],
@@ -30,7 +32,8 @@ const Schedule = props => {
   }
 
 
-  classroom.concat(group).forEach(subject => {
+  let finalArr = group ? classroom.concat(group) : classroom
+  finalArr.forEach(subject => {
     let obj = {
       subject: subject.subject,
       professor: subject.professor

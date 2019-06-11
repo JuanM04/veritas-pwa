@@ -86,6 +86,8 @@ export default ({ data, setData, setTasks, isOnline }) => {
         break
     }
 
+    if(!toEdit) return setToEdit(true)
+
     const func = async () => {
       let response
       if(data.id) {  
