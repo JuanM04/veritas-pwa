@@ -4,7 +4,7 @@ const { useEffect } = require('react')
 const Router = require('next/router').default
 const fetch = require('isomorphic-unfetch')
 
-const { tabs, security } = require('./metadata')
+const { tabs, security, cookies: cookiesData } = require('./metadata')
 const STATIC_DATA = require('./static-data.json')
 
 
@@ -68,7 +68,7 @@ export const checkTokenClient = ctx => {
 
 export const setTokenClient = (ctx, token, cb=false, withUseEffect=false) => {
   const func = () => {
-    nookies.set(ctx, 'token', token, { maxAge: 7 * 24 * 60 * 60, path: '/' }) // 7 days
+    nookies.set(ctx, 'token', token, cookiesData) // 7 days
     if(cb) cb()
   }
   
