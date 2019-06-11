@@ -10,7 +10,7 @@ export default props => {
   const { task, setModalData } = props
   const now = moment().startOf('day')
   const date = moment(task.date)
-  let relativeDate = date.fromNow()
+  let relativeDate = date.from(now)
   if(date.diff(now, 'days') === 0) relativeDate = 'hoy'
   if(date.diff(now, 'days') === 1) relativeDate = 'mañana'
 
