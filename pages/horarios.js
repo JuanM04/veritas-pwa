@@ -32,7 +32,8 @@ const Schedule = props => {
   }
 
 
-  classroom.concat(group).forEach(subject => {
+  let finalArr = group ? classroom.concat(group) : classroom
+  finalArr.forEach(subject => {
     let obj = {
       subject: subject.subject,
       professor: subject.professor
