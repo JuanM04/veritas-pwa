@@ -18,7 +18,7 @@ const Settings = props => {
   }
 
   const logOut = () => {
-    nookies.destroy({}, 'token', cookiesData)
+    nookies.destroy({}, 'token')
     Router.push(security.pages.safeRedirect)
   }
 
@@ -44,7 +44,7 @@ const Settings = props => {
             checked={props.darkMode}
             onChange={() => {
               if(props.darkMode) nookies.destroy({}, 'dark')
-              else nookies.set({}, 'dark')
+              else nookies.set({}, 'dark', cookiesData)
               props.handleDarkMode()
             }}
           >
