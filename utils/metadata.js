@@ -23,5 +23,6 @@ module.exports = {
       safeRedirect: '/',
       redirectWhenLogged: '/horarios'
     }
-  }
+  },
+  cookies: { maxAge: 7 * 24 * 60 * 60, path: '/' }
 }

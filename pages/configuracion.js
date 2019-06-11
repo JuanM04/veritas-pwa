@@ -6,19 +6,19 @@ import { Container, Button, FormCheckbox, FormSelect, Row } from 'shards-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { redirectIfNotLoggedIn } from 'utils'
-import { security } from 'utils/metadata'
+import { security, cookies as cookiesData } from 'utils/metadata'
 
 const Settings = props => {
   const { cookies } = props
   const [currentGroup, setCurrentGroup] = useState(cookies.group)
 
   const handleGroups = e => {
-    nookies.set({}, 'group', e.target.value, { path: '/' })
+    nookies.set({}, 'group', e.target.value, cookiesData)
     setCurrentGroup(e.target.value)
   }
 
   const logOut = () => {
-    nookies.destroy({}, 'token')
+    nookies.destroy({}, 'token', cookiesData)
     Router.push(security.pages.safeRedirect)
   }
 
