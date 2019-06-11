@@ -19,10 +19,10 @@ const Schedule = props => {
   const [modalData, setModalData] = useState(false)
   const timePxs = time => (time * 60 - START_MINUTES) * multiplier
 
-  const cookies = nookies.get()
+
 
   let classroom = getData(true).classroom
-  let group = getData(true).groups[cookies.group]
+  let group = props.group ? getData(true).groups[props.group] : false
   let colsByDay = {
     MON: [],
     TUE: [],
@@ -32,7 +32,8 @@ const Schedule = props => {
   }
 
 
-  classroom.concat(group).forEach(subject => {
+  let finalArr = group ? classroom.concat(group) : classroom
+  finalArr.forEach(subject => {
     let obj = {
       subject: subject.subject,
       professor: subject.professor
@@ -74,6 +75,10 @@ const Schedule = props => {
 
 Schedule.getInitialProps = async (ctx) => {
   await redirectIfNotLoggedIn(ctx)
+
+  const cookies = nookies.get(ctx)
+
+  return { group: cookies.group }
 }
 
 
