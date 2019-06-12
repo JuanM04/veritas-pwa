@@ -44,7 +44,7 @@ const Settings = props => {
             checked={props.darkMode}
             onChange={() => {
               if(props.darkMode) nookies.destroy({}, 'dark')
-              else nookies.set({}, 'dark', cookiesData)
+              else nookies.set({}, 'dark', true, cookiesData)
               props.handleDarkMode()
             }}
           >
