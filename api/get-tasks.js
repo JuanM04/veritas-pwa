@@ -1,5 +1,5 @@
 const baseExpress = require('../utils/base-express')
-const moment = require('moment')
+const moment = require('moment-timezone')
 const { prisma } = require('../prisma/generated/prisma-client')
 
 module.exports = baseExpress((req, res) => {
@@ -7,7 +7,7 @@ module.exports = baseExpress((req, res) => {
     const tasks = await prisma.tasks({
       where: {
         AND: [
-          { date_gte: moment().startOf('day')._d },
+          { date_gte: moment.tz('America/Argentina/Buenos_Aires').startOf('day')._d },
           { OR: [
             { group: 'CLASSROOM' },
             { group: req.body.group }
