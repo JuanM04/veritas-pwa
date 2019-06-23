@@ -276,7 +276,11 @@ export default ({ data, setData, setTasks, isOnline }) => {
                 <Col className="right">{data.group === 'CLASSROOM' ? '4º 5ª' : `Grupo ${data.group}`}</Col>
               </Row>
               {
-                data.description && <Row className="description"><Col>{data.description}</Col></Row>
+                data.description &&
+                <>
+                  <hr/>
+                  <Row className="description"><Col>{data.description}</Col></Row>
+                </>
               }
             </ModalBody>
             <ModalFooter>
