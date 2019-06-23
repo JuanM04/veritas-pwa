@@ -17,10 +17,13 @@ export default props => {
       footer,
       .login .card,
       .modal-content,
-      .form-control, .form-control:focus,
-      .task
+      .form-control, .form-control:focus
       {
         background: ${dark} !important
+      }
+
+      .task {
+        background: ${dark}
       }
 
       :not(svg, path), textarea:focus {

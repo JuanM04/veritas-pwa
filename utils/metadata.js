@@ -24,5 +24,11 @@ module.exports = {
       redirectWhenLogged: '/horarios'
     }
   },
-  cookies: { maxAge: 7 * 24 * 60 * 60, path: '/' }
+  cookies: { maxAge: 7 * 24 * 60 * 60, path: '/' },
+  taskTypes: {
+    EXAM: { theme: 'danger', text: 'examen' },
+    HOMEWORK: { theme: 'warning', text: 'tarea' },
+    MISSING: { theme: 'success', text: 'falta' },
+    OTHER: { theme: 'primary', text: 'otro' }
+  }
 }

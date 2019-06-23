@@ -160,8 +160,13 @@ footer
     font-size: 30px
 
   .task
+    @each $color, $value in $theme-colors
+      &.#{$color}
+        border-left: 2.5px solid $value
+
     .date
       font-weight: bold
+      font-style: italic
 
 
 
