@@ -30,11 +30,16 @@ export default props => {
         color: ${white} !important
       }
 
+      .version {
+        color: ${white} !important
+      }
+
       .index > *,
       .modal-body,
       footer,
       .tasks,
-      .form-control, .form-control:focus
+      .form-control, .form-control:focus,
+      .settings
       {
         color: ${white}
       }

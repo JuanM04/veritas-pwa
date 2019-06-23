@@ -1,4 +1,5 @@
 module.exports = {
+  version: 'v2.1.0',
   tabs: [
     {
       path: '/horarios',
