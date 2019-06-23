@@ -6,7 +6,7 @@ import { Container, Button, FormCheckbox, FormSelect, Row } from 'shards-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { redirectIfNotLoggedIn } from 'utils'
-import { security, cookies as cookiesData } from 'utils/metadata'
+import { security, cookies as cookiesData, version } from 'utils/metadata'
 
 const Settings = props => {
   const { cookies } = props
@@ -58,6 +58,8 @@ const Settings = props => {
             <FontAwesomeIcon icon="sign-out-alt" /> Salir
           </Button>
         </Row>
+
+        <Row><a href="https://hub.juanm04.com/veritas" className="version" target="_blank" rel="noopener noreferrer" >{version}</a></Row>
       </Container>
     </Base>
   )

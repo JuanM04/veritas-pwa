@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import nookies from 'nookies'
 import fetch from 'isomorphic-unfetch'
 import _findIndex from 'lodash/findIndex'
@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { formatTask, formatTasks } from 'utils'
 import getData from 'utils/data'
-import { da } from 'date-fns/esm/locale';
 
 
 
@@ -169,7 +168,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
                     minDate={new Date()}
                     onChange={date => {
                       if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
-                      else setEditDate(new Date(date))
+                      else setEditDate(moment(date).tz('America/Argentina/Buenos_Aires')._d)
                     }}
                     disabled={loading}
                   />
@@ -277,7 +276,11 @@ export default ({ data, setData, setTasks, isOnline }) => {
                 <Col className="right">{data.group === 'CLASSROOM' ? '4º 5ª' : `Grupo ${data.group}`}</Col>
               </Row>
               {
-                data.description && <Row className="description"><Col>{data.description}</Col></Row>
+                data.description &&
+                <>
+                  <hr/>
+                  <Row className="description"><Col>{data.description}</Col></Row>
+                </>
               }
             </ModalBody>
             <ModalFooter>
