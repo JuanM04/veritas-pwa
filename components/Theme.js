@@ -17,13 +17,20 @@ export default props => {
       footer,
       .login .card,
       .modal-content,
-      .form-control, .form-control:focus,
-      .task
+      .form-control, .form-control:focus
       {
         background: ${dark} !important
       }
 
+      .task {
+        background: ${dark}
+      }
+
       :not(svg, path), textarea:focus {
+        color: ${white} !important
+      }
+
+      .version {
         color: ${white} !important
       }
 
@@ -31,7 +38,8 @@ export default props => {
       .modal-body,
       footer,
       .tasks,
-      .form-control, .form-control:focus
+      .form-control, .form-control:focus,
+      .settings
       {
         color: ${white}
       }
