@@ -267,7 +267,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
                   { data.professor && <>{data.professor.last_name}, {data.professor.first_name}</>}
                   { data.title }
                 </Col>
-                <Col className="right" xl="auto">
+                <Col className="right auto">
                   <TaskBadge type={data.type} />
                 </Col>
               </Row>
