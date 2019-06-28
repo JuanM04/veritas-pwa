@@ -32,7 +32,7 @@ const Tasks = props => {
       res = JSON.parse(localStorage.getItem('tasks'))
     }
     
-    setTasks(formatTasks(res))
+    setTasks(formatTasks(res, true))
   }
 
 
