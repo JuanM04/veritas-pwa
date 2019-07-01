@@ -26,6 +26,21 @@ export const setPixelsMultiplier = (multiplier, setMultiplier) => {
 
 
 
+export const taskTypeToNumber = type => {
+  switch (type) {
+    case 'EXAM':
+      return 1
+    case 'HOMEWORK':
+      return 2
+    case 'MISSING':
+      return 3
+    case 'OTHER':
+      return 4
+    default:
+      return 0
+  }
+}
+
 export const formatTask = task => {
   if(typeof task.subject === 'string') task.subject = STATIC_DATA.subjects.find(subject => subject.id === task.subject)
   if(typeof task.professor === 'string') task.professor = STATIC_DATA.professors.find(professor => professor.id === task.professor)
@@ -33,8 +48,12 @@ export const formatTask = task => {
   return task
 }
 
-export const formatTasks = (tasks, sortByDate=false) => {
-  if(sortByDate) tasks.sort((a, b) => new Date(a.date) - new Date(b.date))
+export const formatTasks = (tasks, sortBy={}) => {
+  const fullSort = sortBy === true
+
+  if(fullSort || sortBy.type) tasks.sort((a, b) => taskTypeToNumber(a.type) - taskTypeToNumber(b.type))
+  if(fullSort || sortBy.date) tasks.sort((a, b) => new Date(a.date) - new Date(b.date))
+
   return tasks.map(formatTask)
 }
 
