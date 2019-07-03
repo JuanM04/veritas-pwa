@@ -1,6 +1,7 @@
 @import ../node_modules/shards-ui/src/scss/shards
 
 $big-witdth: 525px
+$footer-height: 64px
 
 
 
@@ -28,7 +29,7 @@ $big-witdth: 525px
       position: absolute
       left: 50%
       margin-left: -50px
-      bottom: 67px
+      bottom: $footer-height + 2.5px
 
 
 
@@ -110,7 +111,7 @@ footer
         width: 100%
         left: 0px
       margin-top: 0
-      margin-bottom: 64px
+      margin-bottom: $footer-height
 
 
 
@@ -175,6 +176,9 @@ footer
     .date
       font-weight: bold
       font-style: italic
+    
+    &:last-child
+      margin-bottom: $footer-height + 10px !important
 
 
 

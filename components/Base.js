@@ -1,14 +1,27 @@
 import React from 'react'
-import { Container } from 'shards-react'
+import Router from 'next/router'
+import { Swipeable } from 'react-swipeable'
 import Tabs from 'components/Tabs'
 
+import { tabs as TABS } from 'utils/metadata'
 
 
-export default props => (
+
+export default ({ currentTab, children }) => (
   <>
-    <Container className="main">
-      {props.children}
-    </Container>
-    <Tabs current={props.currentTab} />
+    <Swipeable
+      className="container main"
+      onSwipedLeft={() => {
+        if(currentTab == TABS.length - 1) return
+        Router.push(TABS[currentTab + 1].path)
+      }}
+      onSwipedRight={() => {
+        if(currentTab == 0) return
+        Router.push(TABS[currentTab - 1].path)
+      }}
+    >
+      {children}
+    </Swipeable>
+    <Tabs current={currentTab} />
   </>
 )
