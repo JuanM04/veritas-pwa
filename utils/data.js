@@ -1,13 +1,14 @@
 const STATIC_DATA = require('utils/static-data.json')
 
-const toModule = (day, ssmNumber, professor=false) => {
+const toModule = (day, ssmNumber, professor=false, originalProfessor=false) => {
   const ssmInfo = STATIC_DATA.ssm
   let newModule = {
     day,
-    ...ssmInfo[ssmNumber.toString()]
+    ...ssmInfo[ssmNumber.toString()],
+    professor: professor || 0
   }
 
-  if(professor) newModule.professor = professor
+  if(originalProfessor !== false) newModule.originalProfessor = originalProfessor
 
   return newModule
 }

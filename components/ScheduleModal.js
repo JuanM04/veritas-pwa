@@ -9,7 +9,8 @@ export default ({ data, setData }) => {
 
   if(!open) return <></>
 
-  const professor = data.professor[data.module.professor || 0]
+  const professor = data.professor[data.module.professor]
+  const originalProfessor = data.module.originalProfessor !== undefined ? data.professor[data.module.originalProfessor] : false
 
 
   return(
@@ -24,6 +25,9 @@ export default ({ data, setData }) => {
         <ModalBody style={{ backgroundColor: data.subject.color }} className="schedule-modal rounded">
           <FontAwesomeIcon className="left" icon={data.subject.icon} />
           <Row><span className="subject-name">{data.subject.name}</span></Row>
+          { originalProfessor &&
+            <Row><span className="professor-name original-professor">{originalProfessor.last_name}, {originalProfessor.first_name}</span></Row>
+          }
           <Row><span className="professor-name">{professor.last_name}, {professor.first_name}</span></Row>
           <Row><span className="module-times">{data.module.start_time} - {data.module.end_time}</span></Row>
           <FontAwesomeIcon className="right" icon={data.subject.icon} />
