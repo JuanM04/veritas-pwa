@@ -62,7 +62,7 @@
     },
     {
       "id":     "b1875406-31ce-4d54-8f33-6731d27264f0",
-      "name":   "Instalación y Aplicación de la Energía",
+      "name":   "Montaje y Distribución de la Energía",
       "color":  "#424242",
       "icon":   "plug"
     },
@@ -74,7 +74,7 @@
     },
     {
       "id":     "547c2179-6a7a-40e2-a60e-85bfa3f35cfa",
-      "name":   "Dibujo y Procesamiento Mecánico",
+      "name":   "Diseño y Mecanizado",
       "color":  "#004D40",
       "icon":   "cogs"
     },
@@ -121,6 +121,11 @@
       "id":         "00657924-9c61-4a16-bd19-eb4318d73e30",
       "first_name": "Valeria",
       "last_name":  "Tiberi"
+    },
+    {
+      "id":         "39521d2b-075e-4001-b315-e039fc1757f2",
+      "first_name": "Fernanda",
+      "last_name":  "Acuña"
     },
     {
       "id":         "fd932c06-35f0-48dc-a8a7-2ac9528fb20c",

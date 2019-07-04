@@ -1,13 +1,14 @@
 const STATIC_DATA = require('utils/static-data.json')
 
-const toModule = (day, ssmNumber, professor=false) => {
+const toModule = (day, ssmNumber, professor=false, originalProfessor=false) => {
   const ssmInfo = STATIC_DATA.ssm
   let newModule = {
     day,
-    ...ssmInfo[ssmNumber.toString()]
+    ...ssmInfo[ssmNumber.toString()],
+    professor: professor || 0
   }
 
-  if(professor) newModule.professor = professor
+  if(originalProfessor !== false) newModule.originalProfessor = originalProfessor
 
   return newModule
 }
@@ -50,8 +51,8 @@ const DATA = {
     },
     {
       subject_id:     'ef532e47-c39e-4aa5-90df-b653bc18d91a',   // Química
-      professors_ids: [ '00657924-9c61-4a16-bd19-eb4318d73e30' ],
-      modules:        [ toModule('TUE',13), toModule('WED',15) ]
+      professors_ids: [ '00657924-9c61-4a16-bd19-eb4318d73e30', '39521d2b-075e-4001-b315-e039fc1757f2' ],
+      modules:        [ toModule('TUE',13,1,0), toModule('WED',15,1,0) ]
     },
     {
       subject_id:     'caed69aa-fc7e-49ac-b586-ca00d7a0fb72',   // Geografía
