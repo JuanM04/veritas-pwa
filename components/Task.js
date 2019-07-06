@@ -9,11 +9,8 @@ import { taskTypes } from 'utils/metadata'
 
 export default props => {
   const { task, setModalData } = props
-  const now = moment().startOf('day')
-  const date = moment(task.date)
-  let relativeDate = date.from(now)
-  if(date.diff(now, 'days') === 0) relativeDate = 'hoy'
-  if(date.diff(now, 'days') === 1) relativeDate = 'mañana'
+  const relativeDate = getRelativeDate(task.date)
+  const relativeEndDate = task.endDate ? getRelativeDate(task.endDate) : false
 
   let data = ''
 
@@ -39,9 +36,29 @@ export default props => {
       onClick={() => setModalData(task)}
       className={`task ${taskTypes[task.type].theme}`}
     >
-      {task.subject ? <FontAwesomeIcon icon={task.subject.icon} color={task.subject.color} /> : ''} {data}
+      {task.subject && <FontAwesomeIcon icon={task.subject.icon} color={task.subject.color} />} {data}
       {' '}
-      <span className="date" >{relativeDate}</span>
+      {
+        relativeEndDate
+        ?
+        <span className="date">
+          {relativeDate} <span>y termina</span> {relativeEndDate}
+        </span>
+        :
+        <span className="date">{relativeDate}</span>
+      }
     </ListGroupItem>
   )
+}
+
+
+
+const getRelativeDate = date => {
+  const now = moment().startOf('day')
+  const momentDate = moment(date)
+  let relativeDate = momentDate.from(now)
+  if(momentDate.diff(now, 'days') === 0) relativeDate = 'hoy'
+  if(momentDate.diff(now, 'days') === 1) relativeDate = 'mañana'
+
+  return relativeDate
 }
