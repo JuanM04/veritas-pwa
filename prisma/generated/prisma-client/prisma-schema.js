@@ -57,6 +57,7 @@ type Task {
   type: TaskType!
   group: String!
   date: DateTime!
+  endDate: DateTime
   subject: String
   professor: String
   title: String
@@ -74,6 +75,7 @@ input TaskCreateInput {
   type: TaskType!
   group: String!
   date: DateTime!
+  endDate: DateTime
   subject: String
   professor: String
   title: String
@@ -94,6 +96,8 @@ enum TaskOrderByInput {
   group_DESC
   date_ASC
   date_DESC
+  endDate_ASC
+  endDate_DESC
   subject_ASC
   subject_DESC
   professor_ASC
@@ -109,6 +113,7 @@ type TaskPreviousValues {
   type: TaskType!
   group: String!
   date: DateTime!
+  endDate: DateTime
   subject: String
   professor: String
   title: String
@@ -144,6 +149,7 @@ input TaskUpdateInput {
   type: TaskType
   group: String
   date: DateTime
+  endDate: DateTime
   subject: String
   professor: String
   title: String
@@ -154,6 +160,7 @@ input TaskUpdateManyMutationInput {
   type: TaskType
   group: String
   date: DateTime
+  endDate: DateTime
   subject: String
   professor: String
   title: String
@@ -201,6 +208,14 @@ input TaskWhereInput {
   date_lte: DateTime
   date_gt: DateTime
   date_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
   subject: String
   subject_not: String
   subject_in: [String!]

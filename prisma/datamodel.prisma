@@ -10,6 +10,7 @@ type Task {
   type: TaskType!
   group: String!
   date: DateTime!
+  endDate: DateTime
   subject: String
   professor: String
   title: String

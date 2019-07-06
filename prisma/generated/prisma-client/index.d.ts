@@ -112,6 +112,8 @@ export type TaskOrderByInput =
   | "group_DESC"
   | "date_ASC"
   | "date_DESC"
+  | "endDate_ASC"
+  | "endDate_DESC"
   | "subject_ASC"
   | "subject_DESC"
   | "professor_ASC"
@@ -168,6 +170,14 @@ export interface TaskWhereInput {
   date_lte?: Maybe<DateTimeInput>;
   date_gt?: Maybe<DateTimeInput>;
   date_gte?: Maybe<DateTimeInput>;
+  endDate?: Maybe<DateTimeInput>;
+  endDate_not?: Maybe<DateTimeInput>;
+  endDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  endDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  endDate_lt?: Maybe<DateTimeInput>;
+  endDate_lte?: Maybe<DateTimeInput>;
+  endDate_gt?: Maybe<DateTimeInput>;
+  endDate_gte?: Maybe<DateTimeInput>;
   subject?: Maybe<String>;
   subject_not?: Maybe<String>;
   subject_in?: Maybe<String[] | String>;
@@ -234,6 +244,7 @@ export interface TaskCreateInput {
   type: TaskType;
   group: String;
   date: DateTimeInput;
+  endDate?: Maybe<DateTimeInput>;
   subject?: Maybe<String>;
   professor?: Maybe<String>;
   title?: Maybe<String>;
@@ -244,6 +255,7 @@ export interface TaskUpdateInput {
   type?: Maybe<TaskType>;
   group?: Maybe<String>;
   date?: Maybe<DateTimeInput>;
+  endDate?: Maybe<DateTimeInput>;
   subject?: Maybe<String>;
   professor?: Maybe<String>;
   title?: Maybe<String>;
@@ -254,6 +266,7 @@ export interface TaskUpdateManyMutationInput {
   type?: Maybe<TaskType>;
   group?: Maybe<String>;
   date?: Maybe<DateTimeInput>;
+  endDate?: Maybe<DateTimeInput>;
   subject?: Maybe<String>;
   professor?: Maybe<String>;
   title?: Maybe<String>;
@@ -280,6 +293,7 @@ export interface Task {
   type: TaskType;
   group: String;
   date: DateTimeOutput;
+  endDate?: DateTimeOutput;
   subject?: String;
   professor?: String;
   title?: String;
@@ -291,6 +305,7 @@ export interface TaskPromise extends Promise<Task>, Fragmentable {
   type: () => Promise<TaskType>;
   group: () => Promise<String>;
   date: () => Promise<DateTimeOutput>;
+  endDate: () => Promise<DateTimeOutput>;
   subject: () => Promise<String>;
   professor: () => Promise<String>;
   title: () => Promise<String>;
@@ -304,6 +319,7 @@ export interface TaskSubscription
   type: () => Promise<AsyncIterator<TaskType>>;
   group: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  endDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   subject: () => Promise<AsyncIterator<String>>;
   professor: () => Promise<AsyncIterator<String>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -317,6 +333,7 @@ export interface TaskNullablePromise
   type: () => Promise<TaskType>;
   group: () => Promise<String>;
   date: () => Promise<DateTimeOutput>;
+  endDate: () => Promise<DateTimeOutput>;
   subject: () => Promise<String>;
   professor: () => Promise<String>;
   title: () => Promise<String>;
@@ -446,6 +463,7 @@ export interface TaskPreviousValues {
   type: TaskType;
   group: String;
   date: DateTimeOutput;
+  endDate?: DateTimeOutput;
   subject?: String;
   professor?: String;
   title?: String;
@@ -459,6 +477,7 @@ export interface TaskPreviousValuesPromise
   type: () => Promise<TaskType>;
   group: () => Promise<String>;
   date: () => Promise<DateTimeOutput>;
+  endDate: () => Promise<DateTimeOutput>;
   subject: () => Promise<String>;
   professor: () => Promise<String>;
   title: () => Promise<String>;
@@ -472,6 +491,7 @@ export interface TaskPreviousValuesSubscription
   type: () => Promise<AsyncIterator<TaskType>>;
   group: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<DateTimeOutput>>;
+  endDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   subject: () => Promise<AsyncIterator<String>>;
   professor: () => Promise<AsyncIterator<String>>;
   title: () => Promise<AsyncIterator<String>>;
