@@ -26,6 +26,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
 
   const [editType, setEditType] = useState(data.type || 'HOMEWORK')
   const [editDate, setEditDate] = useState(data.date ? new Date(data.date) : new Date())
+  const [editEndDate, setEditEndDate] = useState(data.endDate ? new Date(data.endDate) : null)
   const [editGroup, setEditGroup] = useState(data.group ? data.group !== 'CLASSROOM' : false)
   const [editSubject, setEditSubject] = useState(data.subject ? data.subject.id : false)
   const [editProfessor, setEditProfessor] = useState(data.professor ? data.professor.id : false)
@@ -64,6 +65,7 @@ export default ({ data, setData, setTasks, isOnline }) => {
       type: editType,
       group: editGroup ? cookies.group : 'CLASSROOM',
       date: moment(editDate).startOf('day')._d,
+      endDate: editEndDate ? moment(editEndDate).startOf('day')._d : null,
       description: editDescription || null
     }
 
@@ -165,15 +167,36 @@ export default ({ data, setData, setTasks, isOnline }) => {
                     selected={editDate}
                     dropdownMode="select"
                     dateFormat="MMMM d"
+                    selectsStart
+                    startDate={editDate}
+                    endDate={editEndDate}
                     minDate={new Date()}
+                    maxDate={editEndDate}
                     onChange={date => {
                       if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
                       else setEditDate(moment(date).tz('America/Argentina/Buenos_Aires')._d)
                     }}
                     disabled={loading}
                   />
+                  {
+                    editEndDate &&
+                    <DatePicker
+                      selected={editEndDate}
+                      dropdownMode="select"
+                      dateFormat="MMMM d"
+                      selectsEnd
+                      startDate={editDate}
+                      endDate={editEndDate}
+                      minDate={editDate}
+                      onChange={date => {
+                        if(moment(date).diff(moment().startOf('day'), 'days') < 0) return alert('No podés hacer una tarea para ayer')
+                        else setEditEndDate(moment(date).tz('America/Argentina/Buenos_Aires')._d)
+                      }}
+                      disabled={loading}
+                    />
+                  }
                 </Col>
-                <Col xl="auto">
+                <Col className="col-auto">
                   <FormCheckbox
                     checked={editGroup}
                     onChange={() => {
@@ -184,6 +207,16 @@ export default ({ data, setData, setTasks, isOnline }) => {
                     disabled={loading}
                   >
                     Grupo {cookies.group}
+                  </FormCheckbox>
+                  <FormCheckbox
+                    checked={editEndDate}
+                    onChange={() => {
+                      if(editEndDate) setEditEndDate(false)
+                      else setEditEndDate(moment(editDate).add(1, 'days')._d)
+                    }}
+                    disabled={loading}
+                  >
+                    Varios días
                   </FormCheckbox>
                 </Col>
               </Row>
@@ -272,7 +305,15 @@ export default ({ data, setData, setTasks, isOnline }) => {
                 </Col>
               </Row>
               <Row className="bottom">
-                <Col className="left">{moment(data.date).format('dddd D [de] MMMM')}</Col>
+                <Col className="left">
+                  { moment(data.date).format('dddd D [de] MMMM') }
+                  {data.endDate &&
+                    <>
+                      <br/>
+                      {moment(data.endDate).format('dddd D [de] MMMM')}
+                    </>
+                  }
+                </Col>
                 <Col className="right">{data.group === 'CLASSROOM' ? '4º 5ª' : `Grupo ${data.group}`}</Col>
               </Row>
               {
